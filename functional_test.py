@@ -45,10 +45,11 @@ class NewVisitorTest(unittest.TestCase):	# 测试组织成类的形式，继承�
 
 		table = self.browser.find_element_by_id('id_list_table') 
 		rows = table.find_elements_by_tag_name('tr')
-		self.assertTrue(
-			any(row.text == '1:Buy peacock feathers' for row in rows),
-			"New to-do item did not appear in table"
-		)
+		# self.assertTrue(
+		# 	any(row.text == '1:Buy peacock feathers' for row in rows),
+		# 	"New to-do item did not appear in table"
+		# )
+		self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
 
 		# 页面中又显示了一个文本框，可以输入其他待办事项
 		# 他又输入了“use peacock feathers to make a fly”
