@@ -62,7 +62,7 @@ class NewVisitorTest(LiveServerTestCase):	# 测试组织成类的形式，继承
 		# 页面中又显示了一个文本框，可以输入其他待办事项
 		# 他又输入了“use peacock feathers to make a fly”
 		# 伊迪丝做事很有条理
-		self.fail('Finish the test')	# 生成错误信息,用这个方法提醒测试结束了
+		# self.fail('Finish the test')	# 生成错误信息,用这个方法提醒测试结束了
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys('Use peacock feathers to make a fly')
 		inputbox.send_keys(Keys.ENTER)
@@ -89,12 +89,12 @@ class NewVisitorTest(LiveServerTestCase):	# 测试组织成类的形式，继承
 		# 他不像伊迪丝那样兴趣盎然
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys('Buy milk')
-		inputbox.send_keys(keys.ENTER)
+		inputbox.send_keys(Keys.ENTER)
 
 		# 弗朗西斯获得了他的唯一url
 		francis_list_url = self.browser.current_url
 		self.assertRegex(francis_list_url, '/lists/.+')
-		slef.assertNotEqual(francis_list_url, edith_list_url)
+		self.assertNotEqual(francis_list_url, edith_list_url)
 
 		# 这个页面还是没有伊迪丝的清单
 		page_text = self.browser.find_element_by_tag_name('body').text
