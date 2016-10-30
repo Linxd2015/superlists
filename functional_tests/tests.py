@@ -1,8 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest
+from django.test import LiveServerTestCase 
 
-class NewVisitorTest(unittest.TestCase):	# 测试组织成类的形式，继承自unittest.TestCase
+class NewVisitorTest(LiveServerTestCase):	# 测试组织成类的形式，继承自unittest.TestCase
 
 	def setUp(self):	# 初始化，每次执行用例前先执行setUp打开浏览器,结束后执行tearDown关闭浏览器。遇到错误也会正常执行这两个方法
 		self.browser = webdriver.Firefox()
@@ -21,9 +21,9 @@ class NewVisitorTest(unittest.TestCase):	# 测试组织成类的形式，继承�
 		# browser = webdriver.Firefox()
 		# 伊迪丝听说有个很酷的在线待办事项应用
 		# 他去看了这个应用的首页
-		self.browser.get('http://localhost:8000')
-
-		# browser.get('http://localhost:8000')
+		# self.browser.get('http://localhost:8000')
+        
+		self.browser.get(self.live_server_url)
 
 		# 他注意到网页的标题和头部都包含了“To-Do”这词
 
@@ -60,7 +60,7 @@ class NewVisitorTest(unittest.TestCase):	# 测试组织成类的形式，继承�
 		# 页面中又显示了一个文本框，可以输入其他待办事项
 		# 他又输入了“use peacock feathers to make a fly”
 		# 伊迪丝做事很有条理
-		# self.fail('Finish the test')	# 生成错误信息,用这个方法提醒测试结束了
+		self.fail('Finish the test')	# 生成错误信息,用这个方法提醒测试结束了
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys('Use peacock feathers to make a fly')
 		inputbox.send_keys(Keys.ENTER)
@@ -78,5 +78,5 @@ class NewVisitorTest(unittest.TestCase):	# 测试组织成类的形式，继承�
 		# 他很满意，去睡觉了
 
 
-if __name__ == '__main__':
-	unittest.main(warnings='ignore')
+# if __name__ == '__main__':
+# 	unittest.main(warnings='ignore')
