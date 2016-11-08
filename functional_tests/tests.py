@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from django.test import LiveServerTestCase 
+from django.test import LiveServerTestCase
 
 class NewVisitorTest(LiveServerTestCase):	# 测试组织成类的形式，继承自unittest.TestCase
 
@@ -22,7 +22,7 @@ class NewVisitorTest(LiveServerTestCase):	# 测试组织成类的形式，继承
 		# 伊迪丝听说有个很酷的在线待办事项应用
 		# 他去看了这个应用的首页
 		# self.browser.get('http://localhost:8000')
-        
+
 		self.browser.get(self.live_server_url)
 
 		# 他注意到网页的标题和头部都包含了“To-Do”这词
@@ -32,7 +32,7 @@ class NewVisitorTest(LiveServerTestCase):	# 测试组织成类的形式，继承
 		self.assertIn('To-Do', self.browser.title)
 		header_text = self.browser.find_element_by_tag_name('h1').text
 		self.assertIn('To-Do', header_text)
-		
+
 		# 应用邀请他输入一个待办事项
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		self.assertEqual(
@@ -51,13 +51,13 @@ class NewVisitorTest(LiveServerTestCase):	# 测试组织成类的形式，继承
 		self.assertRegex(edith_list_url, '/lists/.+')
 		self.check_for_row_in_list_table('1: Buy peacock feathers')
 
-		table = self.browser.find_element_by_id('id_list_table') 
-		rows = table.find_elements_by_tag_name('tr')
+		# table = self.browser.find_element_by_id('id_list_table')
+		# rows = table.find_elements_by_tag_name('tr')
 		# self.assertTrue(
 		# 	any(row.text == '1:Buy peacock feathers' for row in rows),
 		# 	"New to-do item did not appear in table"
 		# )
-		self.assertIn('1: Buy peacock feathers', [row.text for row in rows],'')
+		# self.assertIn('1: Buy peacock feathers', [row.text for row in rows],'')
 
 		# 页面中又显示了一个文本框，可以输入其他待办事项
 		# 他又输入了“use peacock feathers to make a fly”
@@ -72,7 +72,7 @@ class NewVisitorTest(LiveServerTestCase):	# 测试组织成类的形式，继承
 		self.check_for_row_in_list_table('1: Buy peacock feathers')
 
 		# 现在一个叫弗朗西斯的新用户访问了网站
-		
+
 		## 我们使用一个新的浏览器会话
 		## 确保伊迪丝的信息不会从cookie中泄露出来
 		self.browser.quit()
@@ -82,7 +82,7 @@ class NewVisitorTest(LiveServerTestCase):	# 测试组织成类的形式，继承
 		# 页面中看不到伊迪丝的清单
 		self.browser.get(self.live_server_url)
 		page_text = self.browser.find_element_by_tag_name('body').text
-		self.assertNotIn('Buy peacock feathers`', page_text)
+		self.assertNotIn('Buy peacock feathers', page_text)
 		self.assertNotIn('make a fly', page_text)
 
 		# 弗朗西斯输入一个新待办事项，新建一个清单
@@ -102,4 +102,3 @@ class NewVisitorTest(LiveServerTestCase):	# 测试组织成类的形式，继承
 		self.assertIn('Buy milk', page_text)
 
 		# 两人都很满意，去睡觉了
-		
